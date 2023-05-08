@@ -1,0 +1,57 @@
+<idea-plugin require-restart="false">
+    <id>cn.hperfect</id>
+    <name>api-uploader</name>
+    <vendor email="hjwdemail@qq.com" url="https://github.com/huan-xi">huan-xi</vendor>
+    <version>1.0.0</version>
+    <description><![CDATA[
+      上传springmvc接口到yapi<br>
+      <em>支持注释和swagger注解,选中class或method右击点击上传到yapi即可</em>
+      <a href="https://github.com/huan-xi/api-uploader.git">怎么使用</a> <br>
+      <a href="https://github.com/huan-xi/api-uploader.git">github</a> <br>
+    ]]></description>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.java</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <action id="UploadToYapi" class="cn.hperfect.apikit.actions.YApiUploadAction" text="上传到yapi"
+                description="UploadToYapi">
+            <add-to-group group-id="EditorLangPopupMenu" anchor="first"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="alt u"/>
+        </action>
+        <!-- Add your actions here -->
+<!--        <action id="com.jetbrains.compose.ComposeDemoAction" class="com.jetbrains.compose.ComposeDemoAction"
+                text="Show Compose Demo...">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>-->
+<!--        <action id="cn.hperfect.apikit.actions.HelloAction" class="cn.hperfect.apikit.actions.HelloAction"
+                text="show hello">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>-->
+     <!--   <action id="cn.hperfect.apikit.actions.YApiUploadAction" class="cn.hperfect.apikit.actions.YApiUploadAction"
+                text="show hello1">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>-->
+    </actions>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!--    提示框    -->
+        <notificationGroup id="API KIT Notification Group"
+                           displayType="BALLOON"
+                           key="notification.group.apiKit"/>
+        <codeInsight.lineMarkerProvider language="JAVA"
+                                        implementationClass="cn.hperfect.apikit.provider.ApiKitLineMarkerProvider"/>
+        <!--  配置窗口 -->
+        <projectConfigurable parentId="tools" instance="cn.hperfect.apikit.configurable.ApiUploaderConfigurable"
+                             id="cn.hperfect.apikit.configurable.ApiUploaderConfigurable"
+                             displayName="Api-uploader Configuration"/>
+        <projectService serviceImplementation="cn.hperfect.apikit.settings.AppSettingsState"/>
+    </extensions>
+</idea-plugin>
